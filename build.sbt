@@ -7,11 +7,7 @@ scalaVersion := "2.12.10"
 val akkaVersion = "2.6.5"
 val sparkVersion = "3.0.0"
 val deltaVersion = "0.7.0"
-val akkaHttpVersion = "10.1.7"
-val twitter4jVersion = "4.0.7"
-val kafkaVersion = "2.5.0"
 val log4jVersion = "2.4.1"
-val nlpLibVersion = "3.5.1"
 
 
 resolvers ++= Seq(
@@ -39,12 +35,5 @@ libraryDependencies ++= Seq(
   "org.apache.hadoop" % "hadoop-aws" % "2.7.7",
 
   "org.apache.logging.log4j" % "log4j-api" % log4jVersion,
-  "org.apache.logging.log4j" % "log4j-core" % log4jVersion,
-
-  "org.apache.kafka" %% "kafka" % kafkaVersion,
-  "org.apache.kafka" % "kafka-clients" % kafkaVersion,
-  "org.apache.kafka" % "kafka-streams" % kafkaVersion,
-  "io.spray" %% "spray-json" % "1.3.5",
-
-  "net.liftweb" %% "lift-json" % "3.4.1"
+  "org.apache.logging.log4j" % "log4j-core" % log4jVersion
 )
