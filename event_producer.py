@@ -34,10 +34,10 @@ def message_envelope(event_type):
         def wrapper():
             event = func()
             message_envelope = {
-                "id": str(uuid.uuid4()),
-                "event_type": event_type,
-                "timestamp": str(datetime.datetime.now()),
-                "event_body": event,
+                "eventId": str(uuid.uuid4()),
+                "eventType": event_type,
+                "eventTimestamp": str(datetime.datetime.now()),
+                "event": event,
             }
             return message_envelope
 
@@ -46,13 +46,13 @@ def message_envelope(event_type):
     return decorator_with_type
 
 
-def create_common_event_attrs():
+def create_common_event_attrs() -> dict:
     """
     Generate common event attributes.
     """
     return {
-        "user_agent": fake.user_agent(),
-        "session_id": fake.uuid4(),
+        "userAgent": fake.user_agent(),
+        "sessionId": fake.uuid4(),
         "url": fake.url(),
         "browser": random_browser(),
         "ip": fake.ipv4(),
@@ -60,7 +60,7 @@ def create_common_event_attrs():
 
 
 @message_envelope("page_viewed.v1")
-def create_pageview_event():
+def create_pageview_event() -> dict:
     """
     Generate a random page viewed event.
     """
@@ -70,7 +70,7 @@ def create_pageview_event():
 
 
 @message_envelope("link_clicked.v1")
-def create_link_clicked_event():
+def create_link_clicked_event() -> dict:
     """
     Generate a random link clicked event.
     """
@@ -79,7 +79,7 @@ def create_link_clicked_event():
     return event
 
 
-def create_events(num_events):
+def create_events(num_events) -> list:
     """
     Generate the specified number of random events.
 
@@ -119,7 +119,7 @@ if __name__ == "__main__":
         "--num_events",
         type=int,
         required=True,
-        help="number of events to produce"
+        help="number of events of each type to produce"
     )
 
     parser.add_argument(
