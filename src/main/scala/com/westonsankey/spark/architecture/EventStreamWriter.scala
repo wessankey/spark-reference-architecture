@@ -20,7 +20,7 @@ class EventStreamWriter(redis: RedisClient, destination: S3Destination) {
       .filter(col("parsed.eventType") === eventType)
       .withColumn("timestamp", col("parsed.eventTimestamp"))
       .withColumn("eventId", col("parsed.eventId"))
-      .withColumn("eventData",
+      .withColumn("event",
         from_json(col("parsed.event"), schema, Map.empty[String, String]))
       .drop("parsed", "value")
       .write

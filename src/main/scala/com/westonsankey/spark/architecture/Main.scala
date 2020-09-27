@@ -20,8 +20,16 @@ object Main extends App {
   spark.sparkContext.hadoopConfiguration.set("fs.s3a.access.key", sys.env("AWS_ACCESS_KEY"))
   spark.sparkContext.hadoopConfiguration.set("fs.s3a.secret.key", sys.env("AWS_SECRET_KEY"))
 
-  val redis = new RedisClient(sys.env("REDIS_HOST"), sys.env("REDIS_PORT").toInt)
-  val dest = S3Destination(sys.env("S3_BUCKET"), sys.env("S3_PREFIX"))
+  val redis = new RedisClient(
+    sys.env.getOrElse("REDIS_HOST", "localhost"),
+    sys.env.getOrElse("REDIS_PORT", "6379").toInt
+  )
+
+  val dest = S3Destination(
+    sys.env("S3_BUCKET"),
+    sys.env.getOrElse("S3_PREFIX", "delta-demo")
+  )
+
   val eventStreamWriter = new EventStreamWriter(redis, dest)
 
   // Read raw events from Kafka
@@ -29,6 +37,7 @@ object Main extends App {
     .format("kafka")
     .option("kafka.bootstrap.servers", sys.env("KAFKA_BOOTSTRAP_SERVERS"))
     .option("subscribe", sys.env("KAFKA_TOPIC"))
+    .option("startingOffsets", "latest")
     .load()
 
   rawEvents

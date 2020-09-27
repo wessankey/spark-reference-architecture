@@ -6,6 +6,7 @@ object Model {
 
   val envelopeWrapperSchema: StructType = StructType(
     Array(
+      StructField("eventId", StringType),
       StructField("eventType", StringType),
       StructField("eventTimestamp", StringType),
       StructField("event", StringType)
