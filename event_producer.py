@@ -20,7 +20,7 @@ def random_browser() -> str:
     return random.choice(browsers)
 
 
-def message_envelope(event_type):
+def event_wrapper(event_type):
     """
     Decorator function that wraps raw event data
     in a message envelope.
@@ -33,13 +33,13 @@ def message_envelope(event_type):
         @functools.wraps(func)
         def wrapper():
             event = func()
-            message_envelope = {
+            event_wrapper = {
                 "eventId": str(uuid.uuid4()),
                 "eventType": event_type,
                 "eventTimestamp": str(datetime.datetime.now()),
                 "event": event,
             }
-            return message_envelope
+            return event_wrapper
 
         return wrapper
 
@@ -59,7 +59,7 @@ def create_common_event_attrs() -> dict:
     }
 
 
-@message_envelope("page_viewed.v1")
+@event_wrapper("page_viewed.v1")
 def create_pageview_event() -> dict:
     """
     Generate a random page viewed event.
@@ -69,7 +69,7 @@ def create_pageview_event() -> dict:
     return event
 
 
-@message_envelope("link_clicked.v1")
+@event_wrapper("link_clicked.v1")
 def create_link_clicked_event() -> dict:
     """
     Generate a random link clicked event.

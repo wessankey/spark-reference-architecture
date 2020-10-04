@@ -43,7 +43,7 @@ object Main extends App {
   rawEvents
     .select(col("topic"), expr("cast(value as string) as value"))
     .withColumn("parsed",
-      from_json(col("value"), Model.envelopeWrapperSchema))
+      from_json(col("value"), Model.eventWrapperSchema))
     .writeStream
     .foreachBatch((df: DataFrame, id: Long) => eventStreamWriter.filter_and_output(df, id))
     .start

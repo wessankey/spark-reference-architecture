@@ -4,7 +4,7 @@ import org.apache.spark.sql.types.{StringType, StructField, StructType}
 
 object Model {
 
-  val envelopeWrapperSchema: StructType = StructType(
+  val eventWrapperSchema: StructType = StructType(
     Array(
       StructField("eventId", StringType),
       StructField("eventType", StringType),
