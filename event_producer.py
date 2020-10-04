@@ -118,21 +118,24 @@ if __name__ == "__main__":
     parser.add_argument(
         "--num_events",
         type=int,
-        required=True,
+        required=False,
+        default=10,
         help="number of events of each type to produce"
     )
 
     parser.add_argument(
         "--topic",
         type=str,
-        required=True,
+        required=False,
+        default='raw_events',
         help="Kafka topic"
     )
 
     parser.add_argument(
         "--brokers",
         type=str,
-        required=True,
+        required=False,
+        default='localhost:9092',
         help="Kafka broker list"
     )
 
