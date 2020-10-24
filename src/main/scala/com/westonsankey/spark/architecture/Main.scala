@@ -17,8 +17,8 @@ object Main extends App {
     .getOrCreate()
 
   // Set AWS access keys required for writing to S3
-  spark.sparkContext.hadoopConfiguration.set("fs.s3a.access.key", sys.env("AWS_ACCESS_KEY"))
-  spark.sparkContext.hadoopConfiguration.set("fs.s3a.secret.key", sys.env("AWS_SECRET_KEY"))
+  spark.sparkContext.hadoopConfiguration.set("fs.s3a.access.key", sys.env("AWS_ACCESS_KEY_ID"))
+  spark.sparkContext.hadoopConfiguration.set("fs.s3a.secret.key", sys.env("AWS_SECRET_ACCESS_KEY"))
 
   val redis = new RedisClient(
     sys.env.getOrElse("REDIS_HOST", "localhost"),
